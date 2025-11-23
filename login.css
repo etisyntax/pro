@@ -1,0 +1,85 @@
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(114, 41, 110, 0.5), rgba(0,0,0,0.5)),
+              url("background.jpg") no-repeat center center / cover;
+  font-family: Arial, sans-serif;
+}
+
+
+.login-box {
+  background: rgba(255, 255, 255, 0.1); 
+  border-radius: 15px;
+  padding: 40px;
+  width: 300px;
+  text-align: center;
+
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  color: black;
+}
+
+
+.login-box input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none; 
+  border-radius: 10px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: black;
+}
+
+
+.login-box input::placeholder {
+  color: black;
+}
+
+
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  border: solid;
+  border-radius: 100px;
+  color: #a3a3a3;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+ .login-box button:hover {
+  background: rgba(57, 24, 105, 0.9);
+} 
+
+.login-box a {
+  color: #00ff96;
+  text-decoration: none;
+}
+
+.login-box a:hover {
+  text-decoration: underline;
+}
+.signup-text {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #ddd;
+}
+
+.signup-text a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - HoloClass</title>
+  <link rel="stylesheet" href="dashboard-2.css" type="text/css">
+  <link rel="stylesheet" href="responsiveness.css" type="text/css">
+</head>
+<body>
+  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <div class="overlay" onclick="toggleSidebar()"></div>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">🌐 HoloClass</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search your courses...">
+    </div>
+    <div class="profile">
+      <div class="avatar" onclick="toggleSettings()">👤</div>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <ul>
+      <li><a href="dashboard-2.html" class="active">🏠 Dashboard</a></li>
+      <li><a href="join-session.html">🎥 Join Session</a></li>
+      <li><a href="learning-resources.html">📚 Learning Resources</a></li>
+      <li><a href="quiz.html">🧩 Quizzes & Assignments</a></li>
+      <li><a href="student-report.html">📊 My Reports</a></li>
+      <li><a href="#" id="settingsBtn">⚙️ Settings</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <h1>🎓 Welcome, Student!</h1>
+    <p>Here’s an overview of your learning activities and progress.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h2>📘 Courses Enrolled</h2>
+        <p>5</p>
+      </div>
+      <div class="stat-card">
+        <h2>🎥 Upcoming Sessions</h2>
+        <p>2</p>
+      </div>
+      <div class="stat-card">
+        <h2>🧾 Assignments Due</h2>
+        <p>3</p>
+      </div>
+      <div class="stat-card">
+        <h2>🏆 Performance</h2>
+        <p>82%</p>
+      </div>
+    </div>
+
+    <section class="recent-activity">
+      <h2>🕒 Recent Activity</h2>
+      <ul>
+        <li>✅ Submitted “Photosynthesis Quiz”</li>
+        <li>🧠 Viewed “Human Heart 3D Model”</li>
+        <li>🎥 Joined “Physics AR Session”</li>
+        <li>📥 Downloaded “Genetics Notes.pdf”</li>
+      </ul>
+    </section>
+  </main>
+
+  <div id="settingsPanel" class="settings-panel">
+    <span class="close-btn" onclick="closeSettings()">✖</span>
+    <h2>⚙️ Settings</h2>
+    <ul>
+      <li>👤 Profile</li>
+      <li>🔔 Notifications</li>
+      <li>🎨 Theme</li>
+      <li>🔒 Privacy</li>
+      <li>❓ Help</li>
+    </ul>
+  </div>
+
+  <script>
+  function toggleSettings() {
+    document.getElementById("settingsPanel").classList.add("open");
+  }
+
+  function closeSettings() {
+    document.getElementById("settingsPanel").classList.remove("open");
+  }
+
+  window.onload = () => {
+    const settingsBtn = document.getElementById("settingsBtn");
+    if (settingsBtn) {
+      settingsBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleSettings();
+      });
+    }
+
+    const avatar = document.querySelector(".avatar");
+    if (avatar) {
+      avatar.addEventListener("click", toggleSettings);
+    }
+  };
+
+  function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+
+// Auto-close sidebar when menu item is clicked (on mobile)
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
+});
+</script>
+
+</body>
+</html>

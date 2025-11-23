@@ -1,0 +1,84 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #6F31B9; 
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  background-image: url(pic.jpg);
+  background-repeat: no-repeat; 
+  text-align: center;
+  color: white;
+  background: 
+    linear-gradient(rgba(39, 24, 58, 0.9), rgba(80, 42, 128, 0.7)), url('pic.jpg') center center ; 
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
+
+.container {
+  width: 90%;
+  max-width: 500px;
+}
+
+.logo img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  font-size: 16px;
+  color: #ddd;
+  margin-bottom: 40px;
+}
+
+.dots {
+  margin: 20px 0;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.active {
+  background-color: #4CAF50; 
+}
+
+
+.start-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: white;
+  color: #0d1a0f;
+  border-radius: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.start-btn:hover {
+  background: #f1f1f1;
+}
+
+footer {
+  margin-top: 50px;
+  font-size: 12px;
+  color: #aaa;
+}

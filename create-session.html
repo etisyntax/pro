@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Session - HoloClass</title>
+  <link rel="stylesheet" href="create-session.css" type="text/css">
+  <link rel="stylesheet" href="responsiveness.css" type="text/css">
+</head>
+<body>
+  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <div class="overlay" onclick="toggleSidebar()"></div>
+  <header class="header">
+    <div class="logo">🌐 HoloClass</div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Search sessions, resources...">
+    </div>
+
+    <div class="profile">
+      <div class="avatar" onclick="toggleSettings()">⚙️</div>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <ul>
+      <li><a href="dashboard.html">🏠 Dashboard Overview</a></li>
+      <li><a href="create-session.html" class="active">🎥 Create Session</a></li>
+      <li><a href="content-library.html">📚 Content Library</a></li>
+      <li><a href="student-monitor.html">👩‍🎓 Student Monitor</a></li>
+      <li><a href="reports.html">📊 Reports & Insights</a></li>
+      <li><a href="#" id="settingsBtn">⚙️ Settings</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <h1>🎥 Create a New Session</h1>
+
+    <form class="session-form">
+      <label for="title">Session Title</label>
+      <input id="title" type="text" placeholder="Enter session title" required>
+
+      <label for="date">Date</label>
+      <input id="date" type="date" required>
+
+      <label for="time">Time</label>
+      <input id="time" type="time" required>
+
+      <label for="desc">Description</label>
+      <textarea id="desc" placeholder="Write a short description..." required></textarea>
+
+      <button type="submit">Create Session</button>
+    </form>
+  </main>
+
+  <div id="settingsPanel" class="settings-panel">
+    <span id="closeSettings" class="close-btn">✖</span>
+    <h2>⚙️ Settings</h2>
+    <ul>
+      <li>👤 Profile</li>
+      <li>🔔 Notifications</li>
+      <li>🎨 Theme</li>
+      <li>🔒 Privacy</li>
+      <li>❓ Help</li>
+    </ul>
+  </div>
+
+  <script>
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsPanel = document.getElementById('settingsPanel');
+    const closeBtn = document.getElementById('closeSettings');
+
+    function toggleSettings() {
+      settingsPanel.classList.add('open');
+    }
+
+    function closeSettings() {
+      settingsPanel.classList.remove('open');
+    }
+
+    settingsBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleSettings();
+    });
+
+    closeBtn.addEventListener('click', closeSettings);
+
+    function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+
+// Auto-close sidebar when menu item is clicked (on mobile)
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
+});
+  </script>
+</body>
+</html>

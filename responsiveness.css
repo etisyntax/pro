@@ -1,0 +1,63 @@
+/* Tablet */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 220px !important;
+    }
+    .content {
+        margin-left: 220px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    /* Sidebar hidden by default */
+    .sidebar {
+        position: fixed !important;
+        left: -240px !important;
+        top: 0;
+        width: 240px !important;
+        height: 100vh !important;
+        background: inherit !important;
+        z-index: 200 !important;
+        transition: 0.3s ease-in-out;
+    }
+
+    .sidebar.active {
+        left: 0 !important;
+    }
+
+    /* Overlay behind sidebar */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.45);
+        backdrop-filter: blur(3px);
+        z-index: 150;
+        display: none;
+    }
+    .overlay.active {
+        display: block;
+    }
+
+    /* Hamburger button */
+    .menu-btn {
+        display: block !important;
+        position: fixed;
+        top: 18px;
+        left: 20px;
+        font-size: 30px;
+        color: #fff;
+        cursor: pointer;
+        z-index: 300;
+    }
+
+    .content {
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding: 90px 18px 20px !important;
+    }
+}

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Session</title>
+  <link rel="stylesheet" href="quiz.css" type="text/css"/>
+  <link rel="stylesheet" href="responsiveness.css" type="text/css">
+</head>
+<body>
+  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <div class="overlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar">
+    <ul>
+        <li><a href="dashboard-2.html">🏠 Dashboard</a></li>
+      <li><a href="join-session.html">🎥 Join Session</a></li>
+      <li><a href="learning-resources.html">📚 Learning Resources</a></li>
+      <li><a href="quiz.html" class="active">🧩 Quizzes & Assignments</a></li>
+      <li><a href="student-report.html">📊 My Reports</a></li>
+      <li><a href="#" id="settingsBtn">⚙️ Settings</a></li>
+    </ul>
+  </aside>
+
+  <header class="header">
+    <div class="logo">AR Learning</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search..." />
+    </div>
+    <div class="profile">
+      <span class="avatar">👤</span>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section id="welcomeScreen">
+      <h1>Welcome to the Quiz Session 🧠</h1>
+      <p>Select your preferred topic to begin:</p>
+      <select id="topicSelect">
+        <option value="">-- Select Topic --</option>
+        <option value="biology">Biology</option>
+        <option value="chemistry">Chemistry</option>
+        <option value="physics">Physics</option>
+        <option value="mathematics">Mathematics</option>
+        <option value="computer">Computer Science</option>
+      </select>
+      <button id="startQuizBtn" class="quiz-btn">Start Quiz</button>
+    </section>
+
+    <section id="quizScreen" style="display:none;">
+      <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+      </div>
+      <h2 id="questionText"></h2>
+      <div id="optionsContainer"></div>
+      <button id="nextBtn" class="quiz-btn">Next</button>
+    </section>
+
+    <section id="resultScreen" style="display:none;">
+      <h2>Quiz Completed 🎉</h2>
+      <p id="scoreText"></p>
+      <p id="messageText"></p>
+      <button id="retryBtn" class="quiz-btn">Try Again</button>
+    </section>
+  </main>
+
+  <div id="settingsPanel" class="settings-panel">
+    <span class="close-btn" onclick="closeSettings()">✖</span>
+    <h2>⚙️ Settings</h2>
+    <ul>
+      <li>👤 Profile</li>
+      <li>🔔 Notifications</li>
+      <li>🎨 Theme</li>
+      <li>🔒 Privacy</li>
+      <li>❓ Help</li>
+    </ul>
+  </div>
+
+  <script>
+    const topicSelect = document.getElementById("topicSelect");
+    const startQuizBtn = document.getElementById("startQuizBtn");
+    const welcomeScreen = document.getElementById("welcomeScreen");
+    const quizScreen = document.getElementById("quizScreen");
+    const resultScreen = document.getElementById("resultScreen");
+    const questionText = document.getElementById("questionText");
+    const optionsContainer = document.getElementById("optionsContainer");
+    const nextBtn = document.getElementById("nextBtn");
+    const scoreText = document.getElementById("scoreText");
+    const messageText = document.getElementById("messageText");
+    const progress = document.getElementById("progress");
+
+    const settingsPanel = document.getElementById("settingsPanel");
+    const settingsBtn = document.getElementById("settingsBtn");
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedTopic = "";
+    let questions = [];
+
+    const quizBank = {
+      biology: [
+        { q: "What is the powerhouse of the cell?", options: ["Mitochondria", "Nucleus", "Ribosome", "Chloroplast"], correct: 0 },
+        { q: "What carries genetic information?", options: ["DNA", "Protein", "Lipid", "Carbohydrate"], correct: 0 },
+        { q: "Which organ pumps blood?", options: ["Liver", "Lung", "Heart", "Kidney"], correct: 2 },
+        { q: "What is the basic unit of life?", options: ["Tissue", "Cell", "Organ", "Organism"], correct: 1 },
+        { q: "Where does photosynthesis occur?", options: ["Chloroplast", "Mitochondria", "Nucleus", "Golgi"], correct: 0 }
+      ],
+      chemistry: [
+        { q: "What is H2O?", options: ["Oxygen", "Hydrogen", "Water", "Carbon"], correct: 2 },
+        { q: "What is the chemical symbol for Sodium?", options: ["S", "So", "Na", "N"], correct: 2 },
+        { q: "pH 7 is?", options: ["Acidic", "Basic", "Neutral", "Salty"], correct: 2 },
+        { q: "What is CO2?", options: ["Carbon dioxide", "Carbon monoxide", "Oxygen", "Nitrogen"], correct: 0 },
+        { q: "HCl is?", options: ["Base", "Salt", "Acid", "Water"], correct: 2 }
+      ],
+      physics: [
+        { q: "What is the unit of force?", options: ["Newton", "Joule", "Watt", "Pascal"], correct: 0 },
+        { q: "What pulls objects toward Earth?", options: ["Magnetism", "Friction", "Gravity", "Tension"], correct: 2 },
+        { q: "Light travels in?", options: ["Waves", "Zig-zag", "Straight lines", "Circles"], correct: 2 },
+        { q: "What is speed?", options: ["Distance/time", "Mass x velocity", "Work/time", "Force x area"], correct: 0 },
+        { q: "SI unit of power?", options: ["Watt", "Joule", "Newton", "Volt"], correct: 0 }
+      ],
+      mathematics: [
+        { q: "2 + 2 =", options: ["3", "4", "5", "6"], correct: 1 },
+        { q: "5 x 5 =", options: ["20", "15", "25", "30"], correct: 2 },
+        { q: "10 ÷ 2 =", options: ["4", "5", "6", "7"], correct: 1 },
+        { q: "Square root of 16 =", options: ["2", "3", "4", "5"], correct: 2 },
+        { q: "12 - 5 =", options: ["5", "7", "8", "6"], correct: 1 }
+      ],
+      computer: [
+        { q: "What does CPU stand for?", options: ["Central Process Unit", "Central Processing Unit", "Control Process Unit", "Control Panel Unit"], correct: 1 },
+        { q: "Which language is for web pages?", options: ["HTML", "C", "Python", "Java"], correct: 0 },
+        { q: "RAM means?", options: ["Read And Modify", "Random Access Memory", "Run Access Memory", "Read Access Memory"], correct: 1 },
+        { q: "Binary uses which numbers?", options: ["0 and 1", "1 and 2", "2 and 3", "5 and 6"], correct: 0 },
+        { q: "Which is an input device?", options: ["Monitor", "Keyboard", "Speaker", "Printer"], correct: 1 }
+      ]
+    };
+
+    startQuizBtn.addEventListener("click", () => {
+      selectedTopic = topicSelect.value;
+      if (!selectedTopic) {
+        alert("Please select a topic!");
+        return;
+      }
+      questions = quizBank[selectedTopic];
+      currentQuestion = 0;
+      score = 0;
+      welcomeScreen.style.display = "none";
+      quizScreen.style.display = "block";
+      showQuestion();
+    });
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      questionText.textContent = q.q;
+      optionsContainer.innerHTML = "";
+      q.options.forEach((opt, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.className = "option-btn";
+        btn.onclick = () => selectOption(index);
+        optionsContainer.appendChild(btn);
+      });
+
+      progress.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+    }
+
+    function selectOption(index) {
+      const q = questions[currentQuestion];
+      if (index === q.correct) score++;
+      nextBtn.disabled = false;
+      [...optionsContainer.children].forEach((btn, i) => {
+        btn.disabled = true;
+        if (i === q.correct) btn.classList.add("correct");
+        else if (i === index) btn.classList.add("wrong");
+      });
+    }
+
+    nextBtn.addEventListener("click", () => {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        showQuestion();
+        nextBtn.disabled = true;
+      } else {
+        endQuiz();
+      }
+    });
+
+    function endQuiz() {
+      quizScreen.style.display = "none";
+      resultScreen.style.display = "block";
+      scoreText.textContent = `You scored ${score} out of ${questions.length}`;
+      messageText.textContent = score >= 3 ? "🎉 Great job!" : "😅 Keep practicing!";
+    }
+
+    document.getElementById("retryBtn").addEventListener("click", () => {
+      resultScreen.style.display = "none";
+      welcomeScreen.style.display = "block";
+    });
+
+    settingsBtn.addEventListener("click", () => {
+      settingsPanel.classList.add("open");
+    });
+
+    function closeSettings() {
+      settingsPanel.classList.remove("open");
+    }
+
+    function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+
+// Auto-close sidebar when menu item is clicked (on mobile)
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
+});
+  </script>
+</body>
+</html>

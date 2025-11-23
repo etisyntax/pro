@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HoloClass Dashboard</title>
+  <link rel="stylesheet" href="student.css" type="text/css">
+  <link rel="stylesheet" href="responsiveness.css" type="text/css">
+</head>
+<body>
+  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <div class="overlay" onclick="toggleSidebar()"></div>
+  <header class="header">
+    <div class="logo">🌐 HoloClass</div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Search sessions, resources...">
+    </div>
+
+    <div class="profile">
+      <div class="avatar" onclick="toggleSettings()">⚙️</div>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <ul>
+      <li><a href="dashboard-2.html">🏠 Dashboard</a></li>
+      <li><a href="join-session.html">🎥 Join Session</a></li>
+      <li><a href="learning-resources.html">📚 Learning Resources</a></li>
+      <li><a href="quiz.html" >🧩 Quizzes & Assignments</a></li>
+      <li><a href="student-report.html" class="active">📊 My Reports</a></li>
+      <li><a href="#" id="settingsBtn">⚙️ Settings</a></li>
+    </ul>
+  </aside>
+<div class="settings-panel" id="settingsPanel">
+  <span class="close-btn" onclick="toggleSettings()">✖</span>
+  <h2>⚙️ Settings</h2>
+  <ul>
+    <li><a href="#">👤 Profile</a></li>
+    <li><a href="#">🔑 Change Password</a></li>
+    <li><a href="#">🔔 Notifications</a></li>
+    <li><a href="#">🎨 Appearance</a></li>
+    <li><a href="#">🚪 Logout</a></li>
+  </ul>
+</div>
+
+
+  <script>
+    function toggleSettings() {
+      document.getElementById("settingsPanel").classList.toggle("active");
+    }
+    
+    function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+
+// Auto-close sidebar when menu item is clicked (on mobile)
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
+});
+  </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Join Session</title>
+
+  <link rel="stylesheet" href="join-session.css">
+  <link rel="stylesheet" href="responsiveness.css" type="text/css">
+
+  <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js"></script>
+</head>
+<body>
+  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <div class="overlay" onclick="toggleSidebar()"></div>
+  
+  <header class="header">
+    <div class="logo">🌐 HoloClass</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search your courses...">
+    </div>
+    <div class="profile">
+      <div class="avatar" onclick="toggleSettings()">👤</div>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <ul>
+      <li><a href="dashboard-2.html">🏠 Dashboard</a></li>
+      <li><a href="join-session.html" class="active">🎥 Join Session</a></li>
+      <li><a href="learning-resources.html">📚 Learning Resources</a></li>
+      <li><a href="quiz.html">🧩 Quizzes & Assignments</a></li>
+      <li><a href="student-report.html">📊 My Reports</a></li>
+      <li><a href="#" id="settingsBtn">⚙ Settings</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <div class="join-container">
+      <h1>🎥 AR Session</h1>
+
+      <div class="controls">
+        <label for="modelSelect">Choose Model:</label>
+        <select id="modelSelect">
+          <option value="redbox">🟥 Red Box (Demo)</option>
+        </select>
+
+        <button id="startBtn" class="primary">Start Session</button>
+        <button id="stopBtn" class="secondary" style="display:none;">Stop Session</button>
+      </div>
+
+      <div class="ar-container" id="arWrapper">
+        <div class="ar-overlay" id="arOverlay">
+          Session inactive — click “Start Session” to begin.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+  (function(){
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const arWrapper = document.getElementById('arWrapper');
+    const arOverlay = document.getElementById('arOverlay');
+
+    let sceneEl = null;
+
+    function stopAllCameras() {
+      document.querySelectorAll('video').forEach(v => {
+        try {
+          const s = v.srcObject;
+          if (s && s.getTracks) s.getTracks().forEach(t => t.stop());
+          v.srcObject = null;
+        } catch(e) {}
+      });
+    }
+
+    function createScene() {
+      const scene = document.createElement('a-scene');
+      scene.setAttribute('embedded', '');
+      scene.setAttribute('arjs', 'sourceType: webcam; debugUIEnabled: false;');
+      scene.setAttribute('renderer', 'logarithmicDepthBuffer: true;');
+
+      const marker = document.createElement('a-marker');
+      marker.setAttribute('preset', 'hiro');
+
+      const box = document.createElement('a-box');
+      box.setAttribute('position', '0 0.5 0');
+      box.setAttribute('color', 'red');
+      box.setAttribute('scale', '1.5 1.5 1.5');
+
+      marker.appendChild(box);
+      scene.appendChild(marker);
+
+      const cam = document.createElement('a-entity');
+      cam.setAttribute('camera', '');
+      scene.appendChild(cam);
+
+      return scene;
+    }
+
+    function startSession() {
+      if (sceneEl) return;
+      sceneEl = createScene();
+      arWrapper.appendChild(sceneEl);
+      arOverlay.style.display = 'none';
+      startBtn.style.display = 'none';
+      stopBtn.style.display = 'inline-block';
+    }
+
+    function stopSession() {
+      if (!sceneEl) return;
+      try { sceneEl.parentElement.removeChild(sceneEl); } catch(e){}
+      sceneEl = null;
+      stopAllCameras();
+      startBtn.style.display = 'inline-block';
+      stopBtn.style.display = 'none';
+      arOverlay.style.display = 'block';
+      arOverlay.textContent = 'Session stopped — click “Start Session” to begin again.';
+    }
+
+    startBtn.addEventListener('click', startSession);
+    stopBtn.addEventListener('click', stopSession);
+    window.addEventListener('beforeunload', stopAllCameras);
+  })();
+
+  function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+
+// Auto-close sidebar when menu item is clicked (on mobile)
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
+});
+  </script>
+</body>
+</html>

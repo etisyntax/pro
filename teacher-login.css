@@ -1,0 +1,63 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #6F31B9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+    background: linear-gradient(rgba(114, 41, 110, 0.5), rgba(0,0,0,0.5)),
+              url("background.jpg") no-repeat center center / cover;
+  font-family: Arial, sans-serif;
+}
+
+.login-container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 40px;
+  width: 300px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  color: black;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 100px;
+  outline: none;
+}
+
+.btn {
+  width: 95%;
+  padding: 10px;
+  background: #00bcd4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background: #0097a7;
+}
+
+.switch {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.switch a {
+  color: #ffeb3b;
+  text-decoration: none;
+}

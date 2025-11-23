@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HoloClass - Student Monitor</title>
+  <link rel="stylesheet" href="student-monitor.css" type="text/css">
+  <link rel="stylesheet" href="responsiveness.css" type="text/css">
+</head>
+<body>
+  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <div class="overlay" onclick="toggleSidebar()"></div>
+  <header class="header">
+    <div class="logo">🌐 HoloClass</div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Search students, sessions...">
+    </div>
+
+    <div class="profile">
+      <div class="avatar" onclick="toggleSettings()">⚙️</div>
+    </div>
+  </header>
+
+  <div class="sidebar">
+    <ul>
+      <li><a href="dashboard.html">🏠 Dashboard Overview</a></li>
+      <li><a href="create-session.html">🎥 Create Session</a></li>
+      <li><a href="content-library.html">📚 Content Library</a></li>
+      <li><a href="student-monitor.html" class="active">👩‍🎓 Student Monitor</a></li>
+      <li><a href="reports.html">📊 Reports & Insights</a></li>
+      <li><a href="#" id="settingsBtn">⚙️ Settings</a></li>
+    </ul>
+  </div>
+
+  <main class="main-content">
+    <h1>Student Monitor</h1>
+
+    <div class="cards">
+      <div class="card">👩‍🎓 Active Students: 18</div>
+      <div class="card">✅ Participation: High</div>
+      <div class="card">📊 Attendance: 18 / 25</div>
+      <div class="card">📝 Tasks Submitted: 12</div>
+    </div>
+
+    <h2 style="margin-top:30px;">Live Student List</h2>
+    <div class="student-list">
+      <div class="student">👩 Sarah Johnson - <span class="status active">Active</span></div>
+      <div class="student">👨 David Smith - <span class="status idle">Idle</span></div>
+      <div class="student">👩 Emily Davis - <span class="status hand">Hand Raised ✋</span></div>
+      <div class="student">👨 John Brown - <span class="status disconnected">Disconnected ❌</span></div>
+    </div>
+  </main>
+
+  <div id="settingsPanel" class="settings-panel">
+    <span class="close-btn" onclick="closeSettings()">✖</span>
+    <h2>⚙️ Settings</h2>
+    <ul>
+      <li>👤 Profile</li>
+      <li>🔔 Notifications</li>
+      <li>🎨 Theme</li>
+      <li>🔒 Privacy</li>
+      <li>❓ Help</li>
+    </ul>
+  </div>
+
+  <script>
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsPanel = document.getElementById('settingsPanel');
+
+    settingsBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      settingsPanel.classList.add('open');
+    });
+
+    function closeSettings() {
+      settingsPanel.classList.remove('open');
+    }
+
+    function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+
+// Auto-close sidebar when menu item is clicked (on mobile)
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
+});
+  </script>
+</body>
+</html>

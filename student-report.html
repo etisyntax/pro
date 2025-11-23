@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Report</title>
+  <link rel="stylesheet" href="/CSS/student-report.css">
+  <link rel="stylesheet" href="responsiveness.css" type="text/css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <div class="overlay" onclick="toggleSidebar()"></div>
+  <div class="sidebar">
+    <ul>
+      <li><a href="dashboard-2.html">🏠 Dashboard</a></li>
+      <li><a href="join-session.html">🎥 Join Session</a></li>
+      <li><a href="learning-resources.html">📚 Learning Resources</a></li>
+      <li><a href="quiz.html" >🧩 Quizzes & Assignments</a></li>
+      <li><a href="student-report.html" class="active">📊 My Reports</a></li>
+      <li><a href="#" id="settingsBtn">⚙️ Settings</a></li>
+    </ul>
+  </div>
+
+  <div class="header">
+    <div class="logo">📊 Quiz Report</div>
+    <div class="profile">
+      <span class="avatar" onclick="toggleSettings()">⚙️</span>
+    </div>
+  </div>
+ 
+  <div class="main-content">
+    <h1>Student Report</h1>
+
+    <div class="stats">
+      <div>Total Quizzes: <span id="total-quizzes">0</span></div>
+      <div>Average Score: <span id="average-score">0%</span></div>
+      <div>Best Score: <span id="best-score">0%</span></div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Subject</th>
+          <th>Score</th>
+          <th>Total</th>
+          <th>Percentage</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="report-table-body">
+        <tr>
+          <td>1</td>
+          <td>Biology</td>
+          <td>4</td>
+          <td>5</td>
+          <td>80%</td>
+          <td>09 Oct 2025</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Chemistry</td>
+          <td>5</td>
+          <td>5</td>
+          <td>100%</td>
+          <td>09 Oct 2025</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Physics</td>
+          <td>3</td>
+          <td>5</td>
+          <td>60%</td>
+          <td>09 Oct 2025</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="chart-container">
+      <canvas id="quizChart"></canvas>
+    </div>
+
+    <button class="download-btn" onclick="downloadReport()">Download Report</button>
+  </div>
+
+  <div class="settings-panel" id="settingsPanel">
+    <span class="close-btn" onclick="toggleSettings()">×</span>
+    <h2>Settings</h2>
+    <ul>
+      <li>Export Options</li>
+      <li>Dark/Light Mode</li>
+      <li>Account Info</li>
+    </ul>
+  </div>
+
+  <script>
+    const rows = document.querySelectorAll("#report-table-body tr");
+    const totalQuizzes = rows.length;
+    let totalPercentage = 0;
+    let bestScore = 0;
+    const subjects = [];
+    const percentages = [];
+
+    rows.forEach(row => {
+      const subject = row.cells[1].textContent;
+      const percent = parseFloat(row.cells[4].textContent.replace('%', ''));
+      subjects.push(subject);
+      percentages.push(percent);
+      totalPercentage += percent;
+      if (percent > bestScore) bestScore = percent;
+    });
+
+    const avgScore = totalQuizzes ? (totalPercentage / totalQuizzes).toFixed(0) : 0;
+    document.getElementById("total-quizzes").textContent = totalQuizzes;
+    document.getElementById("average-score").textContent = avgScore + "%";
+    document.getElementById("best-score").textContent = bestScore + "%";
+
+    const ctx = document.getElementById('quizChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: subjects,
+        datasets: [{
+          label: 'Percentage',
+          data: percentages,
+          backgroundColor: '#ff66ff',
+          borderRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true, max: 100 } },
+        plugins: { legend: { labels: { color: '#fff' } } }
+      }
+    });
+
+    function toggleSettings() {
+      document.getElementById('settingsPanel').classList.toggle('open');
+    }
+
+    function downloadReport() {
+      alert("PDF download feature coming soon!");
+    }
+
+    function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+
+// Auto-close sidebar when menu item is clicked (on mobile)
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
+});
+  </script>
+</body>
+</html>

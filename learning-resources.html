@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Resources</title>
+    <link rel="stylesheet" href="learning-resources.css">
+    <link rel="stylesheet" href="responsiveness.css" type="text/css">
+</head>
+<body>
+    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+    <div class="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="sidebar">
+        <ul>
+      <li><a href="dashboard-2.html">🏠 Dashboard</a></li>
+      <li><a href="join-session.html">🎥 Join Session</a></li>
+      <li><a href="learning-resources.html" class="active">📚 Learning Resources</a></li>
+      <li><a href="quiz.html">🧩 Quizzes & Assignments</a></li>
+      <li><a href="student-report.html">📊 My Reports</a></li>
+      <li><a href="#" id="settingsBtn">⚙️ Settings</a></li>
+    </div>
+
+    <div class="header">
+        <div class="logo">Student Portal</div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search...">
+        </div>
+        <div class="profile">
+            <span class="avatar">👤</span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1>📚 Learning Resources</h1>
+
+        <div class="search-container">
+            <input type="text" id="resourceSearch" placeholder="Search for a resource..." onkeyup="searchResources()">
+        </div>
+
+        <div class="resources-grid" id="resourcesList">
+            <div class="resource-item">
+                <div class="icon">📘</div>
+                <div class="resource-title">Algebra Basics</div>
+                <div class="resource-subject">Mathematics</div>
+                <a href="#" class="download-btn">Download</a>
+            </div>
+
+            <div class="resource-item">
+                <div class="icon">🌿</div>
+                <div class="resource-title">Photosynthesis Lecture</div>
+                <div class="resource-subject">Biology</div>
+                <a href="#" class="download-btn">Download</a>
+            </div>
+
+            <div class="resource-item">
+                <div class="icon">🧬</div>
+                <div class="resource-title">Genetics Notes</div>
+                <div class="resource-subject">Biology</div>
+                <a href="#" class="download-btn">Download</a>
+            </div>
+
+            <div class="resource-item">
+                <div class="icon">💻</div>
+                <div class="resource-title">Computer Architecture</div>
+                <div class="resource-subject">Computer Science</div>
+                <a href="#" class="download-btn">Download</a>
+            </div>
+
+            <div class="resource-item">
+                <div class="icon">🖥️</div>
+                <div class="resource-title">JavaScript Tutorial</div>
+                <div class="resource-subject">Programming</div>
+                <a href="#" class="download-btn">Download</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="settings-panel" id="settingsPanel">
+        <span class="close-btn" onclick="toggleSettings()">✖</span>
+        <h2>⚙️ Settings</h2>
+        <ul>
+            <li>Profile</li>
+            <li>Notifications</li>
+            <li>Theme</li>
+            <li>Privacy</li>
+            <li>Logout</li>
+        </ul>
+    </div>
+
+    <script>
+        function searchResources() {
+            const input = document.getElementById('resourceSearch').value.toLowerCase();
+            const items = document.querySelectorAll('.resource-item');
+
+            items.forEach(item => {
+                const title = item.querySelector('.resource-title').textContent.toLowerCase();
+                const subject = item.querySelector('.resource-subject').textContent.toLowerCase();
+
+                if (title.includes(input) || subject.includes(input)) {
+                    item.style.display = "flex";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+
+        function toggleSettings() {
+            const panel = document.getElementById('settingsPanel');
+            panel.classList.toggle('open');
+        }
+
+        function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+
+// Auto-close sidebar when menu item is clicked (on mobile)
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
+});
+    </script>
+
+</body>
+</html>

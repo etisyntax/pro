@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Library - HoloClass</title>
+    <link rel="stylesheet" href="content-library.css" type="text/css" />
+    <link rel="stylesheet" href="responsiveness.css" type="text/css">
+  </head>
+  <body>
+    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+    <div class="overlay" onclick="toggleSidebar()"></div>
+    <header class="header">
+      <div class="logo">🌐 HoloClass</div>
+      <div class="search-bar">
+        <input type="text" placeholder="Search your content..." />
+      </div>
+      <div class="profile">
+        <div class="avatar" onclick="toggleSettings()">⚙️</div>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <ul>
+        <li><a href="dashboard.html">🏠 Dashboard Overview</a></li>
+        <li><a href="create-session.html">🎥 Create Session</a></li>
+        <li>
+          <a href="content-library.html" class="active">📚 Content Library</a>
+        </li>
+        <li><a href="student-monitor.html">👩‍🎓 Student Monitor</a></li>
+        <li><a href="reports.html">📊 Reports & Insights</a></li>
+        <li><a href="#" id="settingsBtn">⚙️ Settings</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <h1>📚 Content Library</h1>
+
+      <div class="upload-section">
+        <button class="upload-btn">⬆️ Upload New Content</button>
+      </div>
+
+      <div class="content-grid">
+        <div class="content-item">
+          <div class="thumb">📄</div>
+          <p>Biology Notes.pdf</p>
+        </div>
+        <div class="content-item">
+          <div class="thumb">🎥</div>
+          <p>Physics Experiment.mp4</p>
+        </div>
+        <div class="content-item">
+          <div class="thumb">🖼️</div>
+          <p>Ancient Rome Map.png</p>
+        </div>
+        <div class="content-item">
+          <div class="thumb">🧬</div>
+          <p>3D Human Heart.glb</p>
+        </div>
+      </div>
+    </main>
+
+    <div id="settingsPanel" class="settings-panel">
+      <span class="close-btn" onclick="closeSettings()">✖</span>
+      <h2>⚙️ Settings</h2>
+      <ul>
+        <li>👤 Profile</li>
+        <li>🔔 Notifications</li>
+        <li>🎨 Theme</li>
+        <li>🔒 Privacy</li>
+        <li>❓ Help</li>
+      </ul>
+    </div>
+
+    <script>
+      function toggleSettings() {
+        document.getElementById("settingsPanel").classList.add("open");
+      }
+      function closeSettings() {
+        document.getElementById("settingsPanel").classList.remove("open");
+      }
+      document.getElementById("settingsBtn").addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleSettings();
+      });
+
+      function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+
+// Auto-close sidebar when menu item is clicked (on mobile)
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
+});
+    </script>
+  </body>
+</html>

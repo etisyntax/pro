@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports & Insights - HoloClass</title>
+  <link rel="stylesheet" href="reports.css" type="text/css">
+  <link rel="stylesheet" href="responsiveness.css" type="text/css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <div class="overlay" onclick="toggleSidebar()"></div>
+  <header class="header">
+    <div class="logo">🌐 HoloClass</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search reports...">
+    </div>
+    <div class="profile">
+      <div class="avatar" onclick="toggleSettings()">⚙️</div>
+    </div>
+  </header>
+  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <div class="overlay" onclick="toggleSidebar()"></div>
+
+  <aside class="sidebar">
+    <ul>
+      <li><a href="dashboard.html">🏠 Dashboard Overview</a></li>
+      <li><a href="create-session.html">🎥 Create Session</a></li>
+      <li><a href="content-library.html">📚 Content Library</a></li>
+      <li><a href="student-monitor.html">👩‍🎓 Student Monitor</a></li>
+      <li><a href="reports.html" class="active">📊 Reports & Insights</a></li>
+      <li><a href="#" id="settingsBtn">⚙️ Settings</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-content">
+    <h1>📊 Reports & Insights</h1>
+
+    <div class="charts-container">
+      <div class="chart-card">
+        <h2>Quiz Performance</h2>
+        <canvas id="quizChart"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <h2>Student Progress</h2>
+        <canvas id="progressChart"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <h2>Content Usage</h2>
+        <canvas id="contentChart"></canvas>
+      </div>
+    </div>
+
+    <div class="report-table">
+      <h2>Student Scores</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Quiz 1</th>
+            <th>Quiz 2</th>
+            <th>Average</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Okon Goodwill</td>
+            <td>85</td>
+            <td>90</td>
+            <td>87.5</td>
+          </tr>
+          <tr>
+            <td>Pius Precious</td>
+            <td>70</td>
+            <td>80</td>
+            <td>75</td>
+          </tr>
+          <tr>
+            <td>Akpan Joshua</td>
+            <td>95</td>
+            <td>88</td>
+            <td>91.5</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <div id="settingsPanel" class="settings-panel">
+    <span class="close-btn" onclick="closeSettings()">✖</span>
+    <h2>⚙️ Settings</h2>
+    <ul>
+      <li>👤 Profile</li>
+      <li>🔔 Notifications</li>
+      <li>🎨 Theme</li>
+      <li>🔒 Privacy</li>
+      <li>❓ Help</li>
+    </ul>
+  </div>
+
+  <script>
+    function toggleSettings() {
+      document.getElementById("settingsPanel").classList.add("open");
+    }
+    function closeSettings() {
+      document.getElementById("settingsPanel").classList.remove("open");
+    }
+    document.getElementById("settingsBtn").addEventListener("click", (e) => {
+      e.preventDefault();
+      toggleSettings();
+    });
+
+    const quizCtx = document.getElementById('quizChart').getContext('2d');
+    new Chart(quizCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Quiz 1', 'Quiz 2', 'Quiz 3'],
+        datasets: [{
+          label: 'Average Score',
+          data: [75, 82, 90],
+          backgroundColor: ['#4CAF50', '#2196F3', '#FF9800']
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    const progressCtx = document.getElementById('progressChart').getContext('2d');
+    new Chart(progressCtx, {
+      type: 'line',
+      data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [{
+          label: 'Student Progress (%)',
+          data: [50, 60, 75, 85],
+          borderColor: '#673AB7',
+          fill: false,
+          tension: 0.3
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    const contentCtx = document.getElementById('contentChart').getContext('2d');
+    new Chart(contentCtx, {
+      type: 'pie',
+      data: {
+        labels: ['PDF Notes', 'Videos', '3D Models'],
+        datasets: [{
+          label: 'Content Usage',
+          data: [40, 35, 25],
+          backgroundColor: ['#E91E63', '#03A9F4', '#8BC34A']
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('active');
+    document.querySelector('.overlay').classList.toggle('active');
+}
+
+// Auto-close sidebar when menu item is clicked (on mobile)
+document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
+});
+  </script>
+</body>
+</html>

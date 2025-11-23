@@ -1,0 +1,188 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  display: flex;
+  background: linear-gradient(to right, #884b8f, #9b59b6, #b07cc6); 
+  color: #fff;
+  height: 100vh;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 220px;
+  right: 0;
+  height: 60px;
+  background: rgba(114, 41, 110, 0.6); /* consistent */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.search-bar input {
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  width: 250px;
+}
+
+.profile .avatar {
+  font-size: 1.4em;
+  cursor: pointer;
+}
+
+.sidebar {
+  width: 220px;
+  background: rgba(114, 41, 110, 0.5);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  padding-top: 80px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin: 10px 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  padding: 12px 20px;
+  display: block;
+  transition: background 0.3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 4px solid #ff66ff;
+}
+
+.main-content {
+  margin-left: 240px;
+  margin-top: 80px;
+  padding: 20px;
+  flex: 1;
+}
+
+.main-content h1 {
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: rgba(114, 41, 110, 0.6);
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.2em;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  background: rgba(114, 41, 110, 0.8);
+}
+.two-columns {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.two-columns div {
+  flex: 1;
+  background: rgba(114, 41, 110, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+}
+
+.two-columns h2 {
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 8px;
+}
+
+.settings-panel {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 25px;
+  transition: right 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+  z-index: 2000;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.settings-panel.open {
+  right: 0;
+  opacity: 1;
+}
+
+.settings-panel h2 {
+  font-size: 1.3em;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #ffe6ff;
+}
+
+.settings-panel ul {
+  list-style: none;
+  padding: 0;
+}
+
+.settings-panel li {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.settings-panel li:hover {
+  color: #ffccff;
+  transform: translateX(5px);
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.4em;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  color: #ff99ff;
+}
