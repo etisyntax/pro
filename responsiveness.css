@@ -60,4 +60,17 @@
         margin-left: 0 !important;
         padding: 90px 18px 20px !important;
     }
+
+}
+/* MOBILE: Make content full width when sidebar is hidden */
+@media (max-width: 768px) {
+    #sidebar {
+        display: none; /* sidebar disappears */
+    }
+
+    #content {
+        width: 100% !important;
+        margin-left: 0 !important;
+        padding: 15px; /* neat spacing */
+    }
 }
